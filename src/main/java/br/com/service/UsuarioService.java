@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.exception.BusinessException;
+import br.com.model.DigitosUnicos;
 import br.com.model.Usuario;
 import br.com.repository.DigitosUnicosRepository;
 import br.com.repository.UsuarioRepository;
@@ -28,26 +29,26 @@ public class UsuarioService {
 		return repository.findAll();
 	}
 	
+	public void salvar(String nome, String email) throws BusinessException {
+		this.salvar(null, nome, email, null);
+	}
+	
+	public void alterar(Integer id , List<DigitosUnicos> digitos) throws BusinessException {
+		this.salvar(id, null, null, digitos);
+	}
 
-	public void salvar(Integer id, String nome , String email) throws BusinessException {
+	public void salvar(Integer id, String nome , String email , List<DigitosUnicos> digitos) throws BusinessException {
 		Usuario usuario = null;
 		
 		if(id != null) {
-			Optional<Usuario> usu = repository.findById(id);
-			
-			if(usu.isPresent()) {
-				usuario = usu.get();
-				usuario.setEmail(email);
-				usuario.setNome(nome);
-			} else {
-				throw new BusinessException("Usuario não encontrado");
-			}
-			
+			usuario = this.find(id);
+			usuario.setDigitosUnicos(digitos);
 		} else {
 			usuario = new Usuario();
-			usuario.setNome(nome);
-			usuario.setEmail(email);
 		}
+		
+		usuario.setNome(nome);
+		usuario.setEmail(email);
 		
 		repository.save(usuario);
 	}
@@ -64,4 +65,13 @@ public class UsuarioService {
 		}
 	}
 	
+	public Usuario find(Integer id) throws BusinessException {
+		
+		Optional<Usuario> usu = repository.findById(id);
+
+		if(!usu.isPresent()) {
+			throw new BusinessException("Usuario não encontrado");
+		}
+		return usu.get();
+	}
 }

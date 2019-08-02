@@ -30,15 +30,15 @@ public class DigitosUnicos implements Serializable {
 	
 	@NotNull
 	@Column(name = "digi_entrada_n")
-	private Long entradaN;
+	private Integer entradaN;
 	
 	@NotNull
 	@Column(name = "digi_entrada_k")
-	private Long entradaK;
+	private Integer entradaK;
 	
 	@NotNull
 	@Column(name = "digi_resultado")
-	private Long resultado;
+	private Integer resultado;
 
 	public Integer getId() {
 		return id;
@@ -52,11 +52,11 @@ public class DigitosUnicos implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public Long getResultado() {
+	public Integer getResultado() {
 		return resultado;
 	}
 
-	public void setResultado(Long resultado) {
+	public void setResultado(Integer resultado) {
 		this.resultado = resultado;
 	}
 
@@ -64,19 +64,19 @@ public class DigitosUnicos implements Serializable {
 		this.id = id;
 	}
 
-	public Long getEntradaN() {
+	public Integer getEntradaN() {
 		return entradaN;
 	}
 
-	public void setEntradaN(Long entradaN) {
+	public void setEntradaN(Integer entradaN) {
 		this.entradaN = entradaN;
 	}
 
-	public Long getEntradaK() {
+	public Integer getEntradaK() {
 		return entradaK;
 	}
 
-	public void setEntradaK(Long entradaK) {
+	public void setEntradaK(Integer entradaK) {
 		this.entradaK = entradaK;
 	}
 

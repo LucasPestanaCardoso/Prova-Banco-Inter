@@ -46,7 +46,8 @@ public class UsuarioController {
 	@ApiOperation(value = "Metodo para salvar usuários" , produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<?> salvar(@RequestParam(required = true) String nome,
 			@RequestParam(required = true) String email) throws BusinessException {
-		service.salvar(null ,nome, email);
+		
+		service.salvar(nome, email);
 		return new ResponseEntity("Usuario salvo com sucesso !!", HttpStatus.OK);
 	}
 
@@ -55,7 +56,7 @@ public class UsuarioController {
 	@ApiOperation(value = "Metodo para atualizar usuários" , produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<?> alterar(@RequestParam(required = true) Integer id, @RequestParam(required = true) String nome,
 			@RequestParam(required = true) String email) throws BusinessException {
-		service.salvar(id ,nome, email);
+		service.alterar(id ,null);
 		return new ResponseEntity("Usuario alterado com sucesso !!", HttpStatus.OK);
 	}
 	

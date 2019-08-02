@@ -21,7 +21,7 @@ public class DigitoUnicoController {
 	@GetMapping(value = "/calcular" , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ApiOperation(value = "Metodo para o calculo de digito unico")
 	public ResponseEntity<?> calcular(@RequestParam(required = true) String n,
-			@RequestParam(required = true) Integer k) {
+			@RequestParam(required = true) Integer k , @RequestParam(required = false) Integer idUsuario) {
 		
 	  
 		return new ResponseEntity("" , HttpStatus.OK);

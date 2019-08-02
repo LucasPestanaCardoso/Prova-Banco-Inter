@@ -4,9 +4,9 @@ import br.com.model.DigitosUnicos;
 
 public class DigitosUnicosDTO {
 
-	private Long k;
-	private Long n;
-	private Long resultado;
+	private Integer k;
+	private Integer n;
+	private Integer resultado;
 	
 	public DigitosUnicosDTO(DigitosUnicos digitosUnicos) {  
 		this.k = digitosUnicos.getEntradaK();
@@ -15,29 +15,29 @@ public class DigitosUnicosDTO {
 	}
 	
 	
-	public Long getK() {
+	public Integer getK() {
 		return k;
 	}
 
-	public void setK(Long k) {
+	public void setK(Integer k) {
 		this.k = k;
 	}
 
-	public Long getN() {
+	public Integer getN() {
 		return n;
 	}
 
-	public void setN(Long n) {
+	public void setN(Integer n) {
 		this.n = n;
 	}
 
 
-	public Long getResultado() {
+	public Integer getResultado() {
 		return resultado;
 	}
 
 
-	public void setResultado(Long resultado) {
+	public void setResultado(Integer resultado) {
 		this.resultado = resultado;
 	}
 	
