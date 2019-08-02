@@ -1,5 +1,7 @@
 package br.com.controller;
 
+import javax.inject.Inject;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.exception.BusinessException;
+import br.com.service.DigitoUnicoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -16,15 +20,19 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/digito-unico")
 public class DigitoUnicoController {
 
+	@Inject
+	private DigitoUnicoService digitoUnicoService;
+	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@GetMapping(value = "/calcular" , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@GetMapping(value = "/calcular" , produces = MediaType.TEXT_PLAIN_VALUE)
 	@ApiOperation(value = "Metodo para o calculo de digito unico")
 	public ResponseEntity<?> calcular(@RequestParam(required = true) String n,
-			@RequestParam(required = true) Integer k , @RequestParam(required = false) Integer idUsuario) {
+			@RequestParam(required = true) Integer k , @RequestParam(required = false) Integer idUsuario) throws BusinessException {
 		
-	  
-		return new ResponseEntity("" , HttpStatus.OK);
+		Integer resultado = digitoUnicoService.digitoUnico(n, k, idUsuario);
+		
+		return new ResponseEntity("O resultado e: " + resultado, HttpStatus.OK);
 	}
 	
 }

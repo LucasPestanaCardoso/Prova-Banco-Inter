@@ -1,5 +1,7 @@
 package br.com.swagger;
 
+import java.util.ArrayList;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -7,6 +9,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.service.VendorExtension;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -28,7 +32,8 @@ public class SwaggerConfig  extends WebMvcConfigurationSupport {
 
 	
 	private ApiInfo metaData() {
-	    return  ApiInfo.DEFAULT;
+		return  new ApiInfo("Api Prova Banco Inter", "Lucas Pestana - lucaspestanaa@gmail.com", "1.0", "urn:tos",
+				new Contact("", "" , ""), "Aprecie com moderação", "", new ArrayList<VendorExtension>());
      }
 	
 	

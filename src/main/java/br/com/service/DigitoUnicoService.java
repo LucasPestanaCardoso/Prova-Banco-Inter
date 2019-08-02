@@ -76,7 +76,10 @@ public class DigitoUnicoService {
 		digitosUnicos.setEntradaK(k);
 		digitosUnicos.setEntradaN(n);
 		digitosUnicos.setResultado(resultado);
-		digitosUnicos.setUsuario(usuarioService.find(idUsuario));
+		 
+		if(idUsuario != null) {
+			digitosUnicos.setUsuario(usuarioService.find(idUsuario));
+		}
 		
 		digitosUnicosRepository.save(digitosUnicos);
 	}
