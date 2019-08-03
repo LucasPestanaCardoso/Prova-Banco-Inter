@@ -1,4 +1,4 @@
-package br.com.swagger;
+package br.com.config;
 
 import java.util.ArrayList;
 
