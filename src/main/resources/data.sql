@@ -1,11 +1,14 @@
 DROP TABLE IF EXISTS tb_usuario;
+
 DROP TABLE IF EXISTS tb_digitos;
+
 
 CREATE TABLE tb_usuario(
   usu_id INT AUTO_INCREMENT  PRIMARY KEY,
   usu_nome VARCHAR(250) NOT NULL,
   usu_email VARCHAR(250) NOT NULL
 );
+
 
 CREATE TABLE tb_digitos(
   digi_id INT AUTO_INCREMENT  PRIMARY KEY,
@@ -18,5 +21,7 @@ CREATE TABLE tb_digitos(
 
 
 
+
 insert into tb_usuario (usu_id , usu_nome , usu_email) values (1 ,'Lucas' , 'lucaspestanaa@gmail.com');
+
 insert into tb_digitos (usu_id ,digi_entrada_n , digi_entrada_k , digi_resultado) values ( 1 ,9875 , 4 , 6);

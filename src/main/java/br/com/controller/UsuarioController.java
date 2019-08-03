@@ -57,7 +57,7 @@ public class UsuarioController {
 	@ApiOperation(value = "Metodo para atualizar usuários" , produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<?> alterar(@RequestParam(required = true) Integer id, @RequestParam(required = true) String nome,
 			@RequestParam(required = true) String email) throws BusinessException {
-		service.alterar(id ,null);
+		service.alterar(id , nome , email);
 		return new ResponseEntity("Usuario alterado com sucesso !!", HttpStatus.OK);
 	}
 	

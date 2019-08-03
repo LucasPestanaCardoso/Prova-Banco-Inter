@@ -30,19 +30,18 @@ public class UsuarioService {
 	}
 	
 	public void salvar(String nome, String email) throws BusinessException {
-		this.salvar(null, nome, email, null);
+		this.salvar(null, nome, email);
 	}
 	
-	public void alterar(Integer id , List<DigitosUnicos> digitos) throws BusinessException {
-		this.salvar(id, null, null, digitos);
+	public void alterar(Integer id , String nome , String email) throws BusinessException {
+		this.salvar(id, nome, email);
 	}
 
-	public void salvar(Integer id, String nome , String email , List<DigitosUnicos> digitos) throws BusinessException {
+	public void salvar(Integer id, String nome , String email) throws BusinessException {
 		Usuario usuario = null;
 		
 		if(id != null) {
 			usuario = this.find(id);
-			usuario.setDigitosUnicos(digitos);
 		} else {
 			usuario = new Usuario();
 		}

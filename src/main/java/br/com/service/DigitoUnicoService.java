@@ -83,7 +83,7 @@ public class DigitoUnicoService {
 		return resultado;
 	}
 
-	private Integer digitoUnico(String valor) {
+	public Integer digitoUnico(String valor) {
 
 		int soma = 0;
 		String[] caracteres = valor.split("");
@@ -97,7 +97,7 @@ public class DigitoUnicoService {
 		return soma;
 	}
 
-	private void salvar(Integer k, Integer n, Integer resultado, Integer idUsuario) throws BusinessException {
+	public void salvar(Integer k, Integer n, Integer resultado, Integer idUsuario) throws BusinessException {
 
 		DigitosUnicos digitosUnicos = new DigitosUnicos();
 
