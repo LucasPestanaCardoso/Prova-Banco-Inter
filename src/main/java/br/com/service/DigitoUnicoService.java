@@ -27,7 +27,7 @@ public class DigitoUnicoService {
 	private Cache<Integer> cache;
 
 	private static final Double limiteK = Math.pow(10, 5);
-	private static final Double limiteN = Math.pow(10, 1000000);
+	private static final Double limiteN = Math.pow(10, 1000000); 
 
 	public Integer digitoUnico(String n, Integer k, Integer idUsuario) throws BusinessException {
 
