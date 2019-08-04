@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import br.com.config.RSA;
 import br.com.exception.BusinessException;
 import br.com.model.Usuario;
 import br.com.repository.DigitosUnicosRepository;
@@ -22,6 +23,9 @@ public class UsuarioService {
 
 	@Inject
 	private DigitosUnicosRepository digitosUnicosRepository;
+	
+	@Inject
+	private RSA rsa;
 
 	@Transactional
 	public List<Usuario> getUsuarios() {
@@ -80,4 +84,14 @@ public class UsuarioService {
 
 		return usu.get(0);
 	}
+	
+	public String gerarPublicKey() throws Exception {
+		return rsa.getChavePublica(null);
+	}
+	
+	public String criptografar(Integer id , String publicKey) throws Exception {
+		Usuario usuario = find(id);
+		return "Criptografia :" + rsa.criptografar(publicKey, usuario);
+	}
+	
 }
