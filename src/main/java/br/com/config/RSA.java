@@ -68,32 +68,7 @@ public class RSA {
 	}
 
 
-	public static File createFile(String path) {
 
-		try {
-
-			File key = new File(path);
-
-			if (key.getParentFile() != null) {
-				key.getParentFile().mkdirs();
-			}
-
-			key.createNewFile();
-
-			return key;
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return null;
-
-	}
-
-	public static String getPath(String pathKey, Long idUsuario) {
-		return System.getProperty("java.io.tmpdir").concat(pathKey).concat(idUsuario.toString()).concat(".key");
-	}
-	
 	
 	public  String getChavePublica(Usuario usuario) throws Exception {
 		
@@ -106,20 +81,6 @@ public class RSA {
         usuario.setPrivateKey(privateKey);
         usuario.setPublicKey(publicKey);
         usuarioService.save(usuario);
-
-		String pathPrivate = getPath(PRIVATE_KEY_FILE, System.currentTimeMillis() );
-		String pathPublic = getPath(PUBLIC_KEY_FILE,  System.currentTimeMillis());
-		
-		File privateKeyFile = createFile(pathPrivate);
-		File publicKeyFile = createFile(pathPublic);
-
-		ObjectOutputStream publicKeyOS = new ObjectOutputStream(new FileOutputStream(publicKeyFile));
-		publicKeyOS.writeObject(publicKey);
-		publicKeyOS.close();
-
-		ObjectOutputStream privateKeyOS = new ObjectOutputStream(new FileOutputStream(privateKeyFile));
-		privateKeyOS.writeObject(privateKey);
-		privateKeyOS.close();
 		
 		return publicKey;
 				
