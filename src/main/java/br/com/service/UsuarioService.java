@@ -91,7 +91,11 @@ public class UsuarioService {
 	
 	public String criptografar(Integer id , String publicKey) throws Exception {
 		Usuario usuario = find(id);
-		return "Criptografia :" + rsa.criptografar(publicKey, usuario);
+		return "Criptografia: " + rsa.criptografar(publicKey, usuario);
+	}
+	
+	public String descriptografar(String texto) throws Exception {
+		return "Original: " + rsa.descriptografar(texto);
 	}
 	
 }

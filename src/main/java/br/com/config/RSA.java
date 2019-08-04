@@ -1,46 +1,32 @@
 package br.com.config;
 
-import java.io.BufferedInputStream;
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.security.Key;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
-import java.security.KeyStore;
-import java.security.KeyStore.Entry;
-import java.security.KeyStore.PrivateKeyEntry;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.SecureRandom;
-import java.security.Signature;
-import java.security.cert.Certificate;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 import java.util.List;
-import java.util.Optional;import java.util.stream.Collector;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 import javax.crypto.Cipher;
-import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.stereotype.Component;
 
+import br.com.exception.BusinessException;
 import br.com.model.Usuario;
 
 @Component
@@ -134,38 +120,38 @@ public class RSA {
 		publicKeyOS.close();
 
 		ObjectOutputStream privateKeyOS = new ObjectOutputStream(new FileOutputStream(privateKeyFile));
-		privateKeyOS.writeObject(pair.getPrivate().getEncoded());
+		privateKeyOS.writeObject(encoder.encodeToString(pair.getPrivate().getEncoded()));
 		privateKeyOS.close();
-			
+		
 		return encoder.encodeToString(pair.getPublic().getEncoded());
-		
-		//return keyFactory.generatePublic(new X509EncodedKeySpec(pair.getPublic().getEncoded())).toString();
-		
+				
 	}
 	
 	public static String descriptografar(String cipherText) throws IOException {
 		
 		String caminho =  System.getProperty("java.io.tmpdir").concat("/keys");
-		
-	
 		List<Path> lista = Files.list(Paths.get(caminho)).collect(Collectors.toList());
 	    String plainText = null;
 	    Integer contador = 0;
-		 
+	    		 
 		do {
 			try {
-				 
-				 ObjectInputStream  inputStream = new ObjectInputStream(new FileInputStream(lista.get(contador).toString())); 
-				 contador ++;
-				 final PrivateKey privateKey = (PrivateKey) inputStream.readObject();
-				 plainText = decrypt(cipherText, privateKey);	
 				
+				 if(contador > lista.size()) {
+					 throw new BusinessException("Hash não encontrado.");
+				 }
+				 			
+			     String content = new String (Files.readAllBytes(lista.get(contador)),Charset.forName("UTF-8")); 
+			     contador++;
+				 PrivateKey privateKey = getPrivateKey(content.substring(7).getBytes());
+				 plainText = decrypt(cipherText, privateKey);
 				 
+				
+						 
 			} catch (Exception e) {
-                   e.printStackTrace();
 			}
 			  
-		} while(plainText != null);
+		} while(plainText == null);
 
 		
 		return plainText;	
@@ -179,78 +165,8 @@ public class RSA {
 		
 		return cipherText;
 		
-		
-		/*String pathPrivate = getPath(PRIVATE_KEY_FILE, 1l);
-
-		
-	
-		
-		PrivateKey teste2 = getPrivateKey(Files.readAllBytes(Paths.get(pathPrivate)));
-		
-		  ObjectInputStream inputStream = null;
-
-		  
-
-		
-		 inputStream = new ObjectInputStream(new FileInputStream(pathPublic)); final
-		  PublicKey publicKey = (PublicKey) inputStream.readObject(); 
-		  String cipherText = encrypt("teste123", teste);
-		  
-		
-
-		  
-		  inputStream = new ObjectInputStream(new FileInputStream(pathPrivate)); final
-		  PrivateKey privateKey = (PrivateKey) inputStream.readObject();
-		  final String plainText = decrypt(cipherText, teste2);
-		
-		Stream<Path> paths = Files.list(path);
-		String pathPublic = getPath(PUBLIC_KEY_FILE, 1);
-
-		List<Path> lista = paths.collect(Collectors.toList());
-		
-		readFiles(publicKey , pathPublic);*/
-		
 	}
 	
-	public static String readFiles(String key, String path) {
-		
-		
-		try {
-			
-			//List<String> stream = Files.lines(Paths.get(path), StandardCharsets.UTF_8).collect(Collectors.toList());
-			
-		     InputStream inStream = Files.newInputStream(Paths.get(path), StandardOpenOption.READ);
-
-		      BufferedInputStream buffer = new BufferedInputStream(inStream);
-		      
-			
-			 FileInputStream fis = new FileInputStream(path);
-			// fis.read(keyBytes);
-			
-			
-			boolean temAChave =  Files.lines(Paths.get(path), StandardCharsets.UTF_8).anyMatch(s -> s.contains(key));
-			
-			if(temAChave) {
-				return path;
-			}
-
-//			Optional<String> nome = stream.stream().map(s -> {
-//
-//				if (s.contains(key)) {
-//					return s.toString();
-//				}
-//
-//				return null;
-//			}).findFirst();
-//
-//			return nome.get();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return null;
-	}
 	
 	public static PublicKey getPublicKey(String key){
 	    try{
@@ -279,7 +195,7 @@ public class RSA {
 	    }
 	    catch(Exception e){
 	        e.printStackTrace();
-	    }
+	    } 
 
 	    return null;
 	}
