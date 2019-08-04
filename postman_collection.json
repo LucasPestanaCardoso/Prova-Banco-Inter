@@ -1,0 +1,387 @@
+{
+	"info": {
+		"_postman_id": "185dc5bf-8843-45da-aad7-3ceccbf98b3d",
+		"name": "postman_collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/usuario/listar-todos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eab99249-81f5-4f3c-8a24-32785d2cbfc1",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/usuario/listar-todos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"listar-todos"
+					]
+				},
+				"description": "Listar todos Usuarios"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/usuario/salvar?email=Thiago&nome=thiago@gmail.com",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dc0596a2-5d18-4fc1-949e-efa051c0bc2d",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/usuario/salvar?email=Thiago&nome=thiago@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"salvar"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "Thiago"
+						},
+						{
+							"key": "nome",
+							"value": "thiago@gmail.com"
+						}
+					]
+				},
+				"description": "Salvar usuario (Inter)"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/usuario/alterar?id=3&nome=Marcos&email=marcos@gmail.com",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0154ecfb-d3d9-443a-808d-88caddf7c5ac",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/usuario/alterar?id=3&nome=Marcos&email=marcos@gmail.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"alterar"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "3"
+						},
+						{
+							"key": "nome",
+							"value": "Marcos"
+						},
+						{
+							"key": "email",
+							"value": "marcos@gmail.com"
+						}
+					]
+				},
+				"description": "Alterar Usuario "
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/usuario/deletar?idUsuario=3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b2e04627-a144-4947-bfa6-502227c6f15f",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/usuario/deletar?idUsuario=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"deletar"
+					],
+					"query": [
+						{
+							"key": "idUsuario",
+							"value": "3"
+						}
+					]
+				},
+				"description": "Deletar Usuario"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/digito-unico/buscarCalculos?idUsuario=1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3ff55030-aded-42f7-b8b5-f76f183cc6d7",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/digito-unico/buscarCalculos?idUsuario=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"digito-unico",
+						"buscarCalculos"
+					],
+					"query": [
+						{
+							"key": "idUsuario",
+							"value": "1"
+						}
+					]
+				},
+				"description": "Buscar calculos do usuario"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/digito-unico/calcular?idUsuario=1&k=9875&n=4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cd647ad6-ff57-47a7-9f87-50acbcdc5041",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/digito-unico/calcular?idUsuario=1&k=9875&n=4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"digito-unico",
+						"calcular"
+					],
+					"query": [
+						{
+							"key": "idUsuario",
+							"value": "1"
+						},
+						{
+							"key": "k",
+							"value": "9875"
+						},
+						{
+							"key": "n",
+							"value": "4"
+						}
+					]
+				},
+				"description": "Metodo de calculo do usuario"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/cripto/gerar-public-key?idUsuario=1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a5a45580-1bd3-4c25-a789-2ff79fcbb976",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cripto/gerar-public-key?idUsuario=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cripto",
+						"gerar-public-key"
+					],
+					"query": [
+						{
+							"key": "idUsuario",
+							"value": "1"
+						}
+					]
+				},
+				"description": "Metodo para retornar uma public key"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/cripto/criptografar?publicKey=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAi5uh3SQib31%2B7sBOW4l076a/KqVHRh2Qa9eiCLhY90awzcjPMk%2BNiHjE4qf13I3fDxOrOpij9O0q1zr9rAErpnCuwif3dJcEwApD55/ERft1qrUM6dG0O6wSvxCz5vF9nCZbRFzWc9wrGhM%2BsUWSjAbbeDz2deKW7jy5MlPkKbJeDUN3lZZ5Yuu3rBZGGgQh/gSLbwXjUDlO1Ncs6k1fXd9Qw3w9OwHGt2tVFfV4sWZTWf7VkonoDkNSHo%2BvnxUGSKoA/%2BC%2BpAXKkhDkRDeb/tmYmY0xG0D5oSQWzd1mlKzZ41he9NJyzkDePXxyt5PLkGmE%2BNHVm7ylwZP%2BlJWqUwIDAQAB\n",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a63a22da-4816-40c8-a054-e323ca78259e",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cripto/criptografar?publicKey=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAi5uh3SQib31%2B7sBOW4l076a/KqVHRh2Qa9eiCLhY90awzcjPMk%2BNiHjE4qf13I3fDxOrOpij9O0q1zr9rAErpnCuwif3dJcEwApD55/ERft1qrUM6dG0O6wSvxCz5vF9nCZbRFzWc9wrGhM%2BsUWSjAbbeDz2deKW7jy5MlPkKbJeDUN3lZZ5Yuu3rBZGGgQh/gSLbwXjUDlO1Ncs6k1fXd9Qw3w9OwHGt2tVFfV4sWZTWf7VkonoDkNSHo%2BvnxUGSKoA/%2BC%2BpAXKkhDkRDeb/tmYmY0xG0D5oSQWzd1mlKzZ41he9NJyzkDePXxyt5PLkGmE%2BNHVm7ylwZP%2BlJWqUwIDAQAB\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cripto",
+						"criptografar"
+					],
+					"query": [
+						{
+							"key": "publicKey",
+							"value": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAi5uh3SQib31%2B7sBOW4l076a/KqVHRh2Qa9eiCLhY90awzcjPMk%2BNiHjE4qf13I3fDxOrOpij9O0q1zr9rAErpnCuwif3dJcEwApD55/ERft1qrUM6dG0O6wSvxCz5vF9nCZbRFzWc9wrGhM%2BsUWSjAbbeDz2deKW7jy5MlPkKbJeDUN3lZZ5Yuu3rBZGGgQh/gSLbwXjUDlO1Ncs6k1fXd9Qw3w9OwHGt2tVFfV4sWZTWf7VkonoDkNSHo%2BvnxUGSKoA/%2BC%2BpAXKkhDkRDeb/tmYmY0xG0D5oSQWzd1mlKzZ41he9NJyzkDePXxyt5PLkGmE%2BNHVm7ylwZP%2BlJWqUwIDAQAB\n"
+						}
+					]
+				},
+				"description": "Criptografar Usuario"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/cripto/descriptografar?textoCriptografado=iZJusv1edwPoYaoJhR7L%2B64aMnSQyodKigZJRlMJ42eQLSo6Q2BtmpEVy5thbz6hXgL9fsBRPwHqOzvUq4ohwKTj4mFrSY3LM9FlUucAcnz/eNzB/iNPlo/5ef5kk4CZJnrzp6%2BLXV3/JPvGvRrQDwOHWKf/ezjR8pCXGX0QX3chXV9NF/k2ZCHf7hH7Aa0T/inxCtXg66qoPFECKVJtRlKoTZ6S3OuhUpU6UNBl3GTS2BurnEHWRcIhAPTnlVKe6B%2BshodgJxDRxdg3xURpUBg3QMx5FDtav8O1IEgEMXoNUK%2BxFYRaVPHheuzNCRm34MaggoDHiW1pup97N5/nOQ==&idUsuario=2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "35fcfd95-ed99-416d-ba16-fbc88481cd80",
+						"exec": [
+							"tests[\"Status code is 200\"] = responseCode.code === 200;\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/cripto/descriptografar?textoCriptografado=iZJusv1edwPoYaoJhR7L%2B64aMnSQyodKigZJRlMJ42eQLSo6Q2BtmpEVy5thbz6hXgL9fsBRPwHqOzvUq4ohwKTj4mFrSY3LM9FlUucAcnz/eNzB/iNPlo/5ef5kk4CZJnrzp6%2BLXV3/JPvGvRrQDwOHWKf/ezjR8pCXGX0QX3chXV9NF/k2ZCHf7hH7Aa0T/inxCtXg66qoPFECKVJtRlKoTZ6S3OuhUpU6UNBl3GTS2BurnEHWRcIhAPTnlVKe6B%2BshodgJxDRxdg3xURpUBg3QMx5FDtav8O1IEgEMXoNUK%2BxFYRaVPHheuzNCRm34MaggoDHiW1pup97N5/nOQ==&idUsuario=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cripto",
+						"descriptografar"
+					],
+					"query": [
+						{
+							"key": "textoCriptografado",
+							"value": "iZJusv1edwPoYaoJhR7L%2B64aMnSQyodKigZJRlMJ42eQLSo6Q2BtmpEVy5thbz6hXgL9fsBRPwHqOzvUq4ohwKTj4mFrSY3LM9FlUucAcnz/eNzB/iNPlo/5ef5kk4CZJnrzp6%2BLXV3/JPvGvRrQDwOHWKf/ezjR8pCXGX0QX3chXV9NF/k2ZCHf7hH7Aa0T/inxCtXg66qoPFECKVJtRlKoTZ6S3OuhUpU6UNBl3GTS2BurnEHWRcIhAPTnlVKe6B%2BshodgJxDRxdg3xURpUBg3QMx5FDtav8O1IEgEMXoNUK%2BxFYRaVPHheuzNCRm34MaggoDHiW1pup97N5/nOQ=="
+						},
+						{
+							"key": "idUsuario",
+							"value": "2"
+						}
+					]
+				},
+				"description": "Descriptografar Usuario."
+			},
+			"response": []
+		}
+	]
+}

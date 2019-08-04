@@ -68,18 +68,4 @@ public class UsuarioController {
 		return new ResponseEntity("Usuario deletado com sucesso !!", HttpStatus.OK);
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@GetMapping(value = "/gerar-public-key" )
-	@ApiOperation(value = "Metodo para gerar uma public key para o usuario" , produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<?> gerarPublicKey() throws Exception {
-		return new ResponseEntity(service.gerarPublicKey(), HttpStatus.OK);
-	}
-	
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@GetMapping(value = "/criptografar" )
-	@ApiOperation(value = "Metodo para criptografar as informações do usuario" , produces = "UTF-8")
-	public ResponseEntity<?> criptografar(@RequestParam(required = true) Integer idUsuario , @RequestParam(required = true) String publicKey) throws Exception {
-		return new ResponseEntity(service.criptografar(idUsuario, publicKey), HttpStatus.OK);
-	}
 }

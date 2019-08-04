@@ -21,7 +21,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@Api(value = "Api para calculo do digito unico")
+@Api(value = "Api para calculo do digito unico"  , description = "Calculo do digito unico")
 @RequestMapping("/digito-unico")
 public class DigitoUnicoController {
 

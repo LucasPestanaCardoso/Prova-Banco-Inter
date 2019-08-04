@@ -51,7 +51,10 @@ public class UsuarioService {
 
 		usuario.setNome(nome);
 		usuario.setEmail(email);
-
+        this.save(usuario);
+	}
+	
+	public void save(Usuario usuario) { 
 		repository.save(usuario);
 	}
 
@@ -85,17 +88,24 @@ public class UsuarioService {
 		return usu.get(0);
 	}
 	
-	public String gerarPublicKey() throws Exception {
-		return rsa.getChavePublica(null);
+	public String gerarPublicKey(Integer id) throws Exception {
+		Usuario usuario = find(id);
+		return rsa.getChavePublica(usuario);
 	}
 	
-	public String criptografar(Integer id , String publicKey) throws Exception {
-		Usuario usuario = find(id);
+	public String criptografar(String publicKey) throws Exception {
+		Usuario usuario = repository.findByPublicKey(publicKey);
+		 
+		if(usuario == null) {
+			throw new BusinessException("Usuario não encontrado ou chave não foi gerada pelo sistema.");
+		}
+		
 		return "Criptografia: " + rsa.criptografar(publicKey, usuario);
 	}
 	
-	public String descriptografar(String texto) throws Exception {
-		return "Original: " + rsa.descriptografar(texto);
+	public String descriptografar(String texto , Integer id) throws Exception {
+		Usuario usuario = find(id);
+		return "Original: " + rsa.descriptografarBase(texto , usuario);
 	}
 	
 }

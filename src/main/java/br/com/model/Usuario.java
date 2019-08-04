@@ -13,9 +13,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonRawValue;
-import com.fasterxml.jackson.annotation.JsonValue;
-
 @Entity
 @Table(name = "tb_usuario")
 public class Usuario implements Serializable {
@@ -38,8 +35,34 @@ public class Usuario implements Serializable {
 	
 	@OneToMany(mappedBy = "usuario" , fetch = FetchType.EAGER)
 	private List<DigitosUnicos> digitosUnicos;
+	
+	@Column(name = "usu_private_key")
+	private String privateKey;
+	
+	@Column(name = "usu_public_key")
+	private String publicKey;
 
 	
+	public String getPublicKey() {
+		return publicKey;
+	}
+
+	public void setPublicKey(String publicKey) {
+		this.publicKey = publicKey;
+	}
+
+	public String getPrivateKey() {
+		return privateKey;
+	}
+
+	public void setPrivateKey(String privateKey) {
+		this.privateKey = privateKey;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -60,9 +83,6 @@ public class Usuario implements Serializable {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id; 
-	}
 
 	public List<DigitosUnicos> getDigitosUnicos() {
 		return digitosUnicos;

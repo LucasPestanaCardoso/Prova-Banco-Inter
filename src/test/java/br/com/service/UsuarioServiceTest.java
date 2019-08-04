@@ -5,8 +5,11 @@ import static org.junit.Assert.assertNull;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.math.NumberUtils;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
@@ -19,58 +22,51 @@ import br.com.model.Usuario;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = InterApplication.class)
 @AutoConfigureMockMvc
-@TestPropertySource(
-  locations = "classpath:application.properties")
+@TestPropertySource(locations = "classpath:application.properties")
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UsuarioServiceTest {
 
 	@Inject
-	private DigitoUnicoService digitoService;
-	
-	@Inject
 	private UsuarioService service;
-	
-	
+
+	private String publicKey;
+
 	@Test
-	public void salvarTest() {
-		try {
-		   	service.salvar("Amanda Rodrigues", "amanda@gmail.com");
-		   	Usuario usuario = service.findByNome("Amanda Rodrigues");
-		   	
-			assertNotNull(usuario);
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		}
-	
+	public void test1() throws BusinessException {
+
+		service.salvar("Amanda Rodrigues", "amanda@gmail.com");
+		Usuario usuario = service.findByNome("Amanda Rodrigues");
+
+		assertNotNull(usuario);
+
 	}
-	
+
 	@Test
-	public void alterarTest() {
-		try {
-			
-		   	Usuario usuario = service.findByNome("Amanda Rodrigues");
-		   	service.alterar(usuario.getId() , "Diego Pereira", "amanda@gmail.com");
-		   	
-			assertNotNull(service.findByNome("Diego Pereira"));
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		}
-	
+	public void test2() throws BusinessException {
+
+		Usuario usuario = service.findByNome("Amanda Rodrigues");
+		service.alterar(usuario.getId(), "Diego Pereira", "amanda@gmail.com");
+
+		assertNotNull(service.findByNome("Diego Pereira"));
+
 	}
-	
-	
+
 	@Test
-	public void deleteTest() {
-		try {
-			
-		   	Usuario usuario = service.findByNome("Diego Pereira");
-		   	service.deletar(usuario.getId());
-		   	assertNull(service.findByNome("Diego Pereira"));
-		   	
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		}
-	
+	public void test3() throws Exception {
+
+		publicKey = service.gerarPublicKey(NumberUtils.INTEGER_ONE);
+		assertNotNull(publicKey);
+
 	}
-	
-	
+
+
+	@Test(expected = BusinessException.class)
+	public void test4() throws BusinessException {
+
+		Usuario usuario = service.findByNome("Diego Pereira");
+		service.deletar(usuario.getId());
+		assertNull(service.findByNome("Diego Pereira"));
+
+	}
+
 }

@@ -23,11 +23,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.crypto.Cipher;
+import javax.inject.Inject;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import br.com.exception.BusinessException;
 import br.com.model.Usuario;
+import br.com.service.UsuarioService;
 
 @Component
 public class RSA {
@@ -35,6 +38,9 @@ public class RSA {
 	public static String PRIVATE_KEY_FILE = "/keys/private";
 	public static String PUBLIC_KEY_FILE = "/keys/public";
 
+	@Inject
+	private UsuarioService usuarioService;
+	
 	public static KeyPair generateKeyPair() throws Exception {
 		KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
 		generator.initialize(2048, new SecureRandom());
@@ -84,30 +90,22 @@ public class RSA {
 
 	}
 
-	public static boolean areKeysPresent(Integer idUsuario) {
-
-		String pathPrivate = getPath(PRIVATE_KEY_FILE,  System.currentTimeMillis());
-		String pathPublic = getPath(PUBLIC_KEY_FILE,  System.currentTimeMillis());
-
-		File privateKey = new File(pathPrivate);
-		File publicKey = new File(pathPublic);
-
-		if (privateKey.exists() && publicKey.exists()) {
-			return true;
-		}
-		return false;
-	}
-
 	public static String getPath(String pathKey, Long idUsuario) {
 		return System.getProperty("java.io.tmpdir").concat(pathKey).concat(idUsuario.toString()).concat(".key");
 	}
 	
 	
-	public static String getChavePublica(Usuario usuario) throws Exception {
+	public  String getChavePublica(Usuario usuario) throws Exception {
 		
 		KeyPair pair = generateKeyPair();
         Base64.Encoder encoder = Base64.getEncoder();
+        
+        String publicKey = encoder.encodeToString(pair.getPublic().getEncoded());
+        String privateKey = encoder.encodeToString(pair.getPrivate().getEncoded());
 
+        usuario.setPrivateKey(privateKey);
+        usuario.setPublicKey(publicKey);
+        usuarioService.save(usuario);
 
 		String pathPrivate = getPath(PRIVATE_KEY_FILE, System.currentTimeMillis() );
 		String pathPublic = getPath(PUBLIC_KEY_FILE,  System.currentTimeMillis());
@@ -116,18 +114,42 @@ public class RSA {
 		File publicKeyFile = createFile(pathPublic);
 
 		ObjectOutputStream publicKeyOS = new ObjectOutputStream(new FileOutputStream(publicKeyFile));
-		publicKeyOS.writeObject(encoder.encodeToString(pair.getPublic().getEncoded()));
+		publicKeyOS.writeObject(publicKey);
 		publicKeyOS.close();
 
 		ObjectOutputStream privateKeyOS = new ObjectOutputStream(new FileOutputStream(privateKeyFile));
-		privateKeyOS.writeObject(encoder.encodeToString(pair.getPrivate().getEncoded()));
+		privateKeyOS.writeObject(privateKey);
 		privateKeyOS.close();
 		
-		return encoder.encodeToString(pair.getPublic().getEncoded());
+		return publicKey;
 				
 	}
 	
-	public static String descriptografar(String cipherText) throws IOException {
+	
+	public String descriptografarBase(String cipherText, Usuario usuario) throws BusinessException {
+		
+	    String privateKey =	usuario.getPrivateKey();
+	    String plainText = null;
+
+	    
+	    if(StringUtils.isBlank(privateKey)) {
+	    	throw new BusinessException("Usuario sem dados criptografados");
+	    }
+		
+		 try {
+			PrivateKey key = getPrivateKey(privateKey.getBytes());
+			plainText = decrypt(cipherText, key);
+		} catch (Exception e) {
+			e.printStackTrace();
+	    	throw new BusinessException("Não foi possivel descriptografar, verifique se as informações estão corretas.");
+		}
+
+		
+		return plainText;
+	}
+	
+	
+	public String descriptografar(String cipherText) throws IOException {
 		
 		String caminho =  System.getProperty("java.io.tmpdir").concat("/keys");
 		List<Path> lista = Files.list(Paths.get(caminho)).collect(Collectors.toList());
@@ -158,7 +180,7 @@ public class RSA {
 	}
 	
 	
-	public static String criptografar(String publicKey , Usuario usuario) throws Exception {
+	public String criptografar(String publicKey , Usuario usuario) throws Exception {
 		
 		PublicKey key = getPublicKey(publicKey);
 		String cipherText = encrypt(usuario.getNome() + " " + usuario.getEmail(), key);
@@ -198,101 +220,6 @@ public class RSA {
 	    } 
 
 	    return null;
-	}
-	
-
-	public static void main(String... argv) throws Exception {
-		
-		Usuario usuario = new Usuario();
-		usuario.setId(1);
-		usuario.setNome("lucas");
-		usuario.setEmail("email");
-		
-		String publicKey = getChavePublica(usuario);
-		
-		String cipher = criptografar(publicKey , usuario);
-		
-		System.out.println(cipher);
-		
-		String original = descriptografar(cipher);
-		
-		System.out.println(original);
-
-		
-		// First generate a public/private key pair
-	//	 KeyPair pair = getKeyPairFromKeyStore();
-
-		/*
-		 * Integer idUsuario = 2; String message =
-		 * "the answer to life the universe and everything";
-		 * 
-		 * String pathPrivate = getPath(PRIVATE_KEY_FILE, idUsuario); String pathPublic
-		 * = getPath(PUBLIC_KEY_FILE, idUsuario);
-		 * 
-		 * 
-		 * if(!areKeysPresent(idUsuario)) {
-		 * 
-		 * KeyPair pair = generateKeyPair();
-		 * 
-		 * 
-		 * File privateKeyFile = createFile(pathPrivate); File publicKeyFile =
-		 * createFile(pathPublic);
-		 * 
-		 * ObjectOutputStream publicKeyOS = new ObjectOutputStream(new
-		 * FileOutputStream(publicKeyFile)); publicKeyOS.writeObject(pair.getPublic());
-		 * publicKeyOS.close();
-		 * 
-		 * ObjectOutputStream privateKeyOS = new ObjectOutputStream(new
-		 * FileOutputStream(privateKeyFile));
-		 * privateKeyOS.writeObject(pair.getPrivate()); privateKeyOS.close();
-		 * 
-		 * }
-		 * 
-		 * 
-		 * ObjectInputStream inputStream = null;
-		 * 
-		 * inputStream = new ObjectInputStream(new FileInputStream(pathPublic)); final
-		 * PublicKey publicKey = (PublicKey) inputStream.readObject(); String cipherText
-		 * = encrypt(message, publicKey);
-		 * 
-		 * inputStream = new ObjectInputStream(new FileInputStream(pathPrivate)); final
-		 * PrivateKey privateKey = (PrivateKey) inputStream.readObject(); final String
-		 * plainText = decrypt(cipherText, privateKey);
-		 */
-
-		/*
-		 * System.out.println(plainText);
-		 * 
-		 * File privateKeyFile = new File(PUBLIC_KEY_FILE); File publicKeyFile = new
-		 * File(PUBLIC_KEY_FILE);
-		 * 
-		 * if (privateKeyFile.getParentFile() != null) {
-		 * privateKeyFile.getParentFile().mkdirs(); }
-		 * 
-		 * privateKeyFile.createNewFile();
-		 * 
-		 * if (publicKeyFile.getParentFile() != null) {
-		 * publicKeyFile.getParentFile().mkdirs(); }
-		 * 
-		 * publicKeyFile.createNewFile();
-		 */
-
-		// Our secret message
-
-		// Encrypt the message
-		// String cipherText = encrypt(message, pair.getPublic());
-
-		// Now decrypt it
-//		String decipheredMessage = decrypt(cipherText, pair.getPrivate());
-//
-//		System.out.println(decipheredMessage);
-//
-//		// Let's sign our message
-//		String signature = sign("foobar", pair.getPrivate());
-//
-//		// Let's check the signature
-//		boolean isCorrect = verify("foobar", signature, pair.getPublic());
-//		System.out.println("Signature correct: " + isCorrect);
 	}
 
 }

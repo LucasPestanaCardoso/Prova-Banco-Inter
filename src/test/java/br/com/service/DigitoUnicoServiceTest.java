@@ -28,47 +28,30 @@ public class DigitoUnicoServiceTest {
 	private DigitoUnicoService service;
 	
 	@Test
-	public void calcularDigitoUnicoTest() {
-		try {
+	public void calcularDigitoUnicoTest() throws BusinessException {
+		
 		    int retorno =	service.calcularDigitoUnico("9875", 4, null);
 			assertEquals(8, retorno);
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		}
-	
+
 	}
 	
 	@Test
 	public void digitoUnicoTest() {
-		try {
 		    int retorno =	service.digitoUnico("116");
 			assertEquals(8, retorno);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	
 	}
 	
 	@Test
-	public void buscarDigitosByUsuarioTest() {
-		try {
+	public void buscarDigitosByUsuarioTest() throws BusinessException {
+		
 			List<DigitosUnicos> digitosUnicos =	service.buscarDigitosByUsuario(1);
 			assertEquals(1, digitosUnicos.size());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	
 	}
 	
 	@Test
-	public void calcularDigitoUnico2Test() {
-		try {
+	public void calcularDigitoUnico2Test() throws BusinessException {
 		    int retorno =	service.digitoUnico("9875", 4, 1);
 			assertEquals(8, retorno);
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		}
-	
 	}
 	
 	

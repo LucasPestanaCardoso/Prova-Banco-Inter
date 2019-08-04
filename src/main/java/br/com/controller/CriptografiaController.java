@@ -27,23 +27,23 @@ public class CriptografiaController {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@GetMapping(value = "/gerar-public-key" )
 	@ApiOperation(value = "Metodo para gerar uma public key para o usuario" , produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<?> gerarPublicKey() throws Exception {
-		return new ResponseEntity(service.gerarPublicKey(), HttpStatus.OK);
+	public ResponseEntity<?> gerarPublicKey(@RequestParam(required = true) Integer idUsuario) throws Exception {
+		return new ResponseEntity(service.gerarPublicKey(idUsuario), HttpStatus.OK);
 	}
 	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@PostMapping(value = "/criptografar" )
 	@ApiOperation(value = "Metodo para criptografar as informações do usuario" , produces = "UTF-8")
-	public ResponseEntity<?> criptografar(@RequestParam(required = true) Integer idUsuario , @RequestParam(required = true) String publicKey) throws Exception {
-		return new ResponseEntity(service.criptografar(idUsuario, publicKey), HttpStatus.OK);
+	public ResponseEntity<?> criptografar(@RequestParam(required = true) String publicKey) throws Exception {
+		return new ResponseEntity(service.criptografar(publicKey), HttpStatus.OK);
 	}
 
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@GetMapping(value = "/descriptografar" )
 	@ApiOperation(value = "Metodo para descriptografar as informações do usuario" , produces = "UTF-8")
-	public ResponseEntity<?> descriptografar(@RequestParam(required = true) String textoCriptografado) throws Exception {
-		return new ResponseEntity(service.descriptografar(textoCriptografado), HttpStatus.OK);
+	public ResponseEntity<?> descriptografar(@RequestParam(required = true) String textoCriptografado , @RequestParam(required = true) Integer idUsuario) throws Exception {
+		return new ResponseEntity(service.descriptografar(textoCriptografado , idUsuario), HttpStatus.OK);
 	}
 }
