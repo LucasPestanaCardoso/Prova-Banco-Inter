@@ -1,4 +1,3 @@
-
 **Subir o Projeto**
 
 Instalar(Raiz do Projeto) -> mvn clean install                                                                            
@@ -12,18 +11,24 @@ URL : http://localhost:8080/swagger-ui.html
 URL Console H2 : http://localhost:8080/h2-console                                                                
 Usuario H2 : adm                                                                        
 Senha : adm                                                                                             
-JDBC URL : jdbc:h2:mem:testdb                                                                                           
+JDBC URL : jdbc:h2:mem:testdb    
+
+**Criptografia**
+
+- A criptografia começa ao gerar uma chave publica para o usuario  `http://localhost:8080/cripto/gerar-public-key?idUsuario=1`
+
+- A chave publica e passada para  `http://localhost:8080/cripto/criptografar?publicKey` onde retorna os dados do Usuario Criptografados
+
+- O após isso o método `http://localhost:8080/cripto/descriptografar?textoCriptografado?idUsuario`  retorna os dados Descriptografados
 
 
 **Info's**
 
--> Em /resources tem um arquivo chamado data.sql com 2 inserts para testes.                                                 
--> Caso você execute o postman_collection.json 2x seguidas a segunda vai dar erro , pelas as mudanças nos inserts da primeira execução.                   
--> As ações nos EndPoints são pelo ID Usuario o mesmo retorna pelo swagger no listar-todos ou direto na url em http://localhost:8080/usuario/listar-todos.          
--> Como que tinha que ter um EndPoint que recebe uma PublicKey eu criei um EndPoint para gerar uma public key, e outras para criptografar e descriptografar.                                      
--> Eu salvei as Keys na pasta temp mesmo, achei mais pratico para o teste.                                                         
+- Em /resources tem um arquivo chamado data.sql com 2 inserts para testes.                                                 
+- Caso você execute o postman_collection.json 2x seguidas a segunda vai dar erro , pelas as mudanças nos inserts da primeira execução.                   
+- As ações nos EndPoints são pelo ID Usuario o mesmo retorna pelo swagger no listar-todos ou direto na url em `http://localhost:8080/usuario/listar-todos`.          
 
--> Qualquer erro que a aplicação apresentar, pode entrar em contato lucaspestanaa@gmail.com
+ Qualquer erro que a aplicação apresentar, pode entrar em contato lucaspestanaa@gmail.com
 
 Obrigado !
 
