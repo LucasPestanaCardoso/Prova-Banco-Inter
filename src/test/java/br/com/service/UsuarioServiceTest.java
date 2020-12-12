@@ -29,8 +29,6 @@ public class UsuarioServiceTest {
 	@Inject
 	private UsuarioService service;
 
-	private String publicKey;
-
 	@Test
 	public void test1() throws BusinessException {
 
@@ -45,20 +43,11 @@ public class UsuarioServiceTest {
 	public void test2() throws BusinessException {
 
 		Usuario usuario = service.findByNome("Amanda Rodrigues");
-		service.alterar(usuario.getId(), "Diego Pereira", "amanda@gmail.com");
+		service.alterar(usuario.getId(), "Diego Pereira", "diego@gmail.com");
 
 		assertNotNull(service.findByNome("Diego Pereira"));
 
 	}
-
-	/*
-	 * @Test public void test3() throws Exception {
-	 * 
-	 * publicKey = service.gerarPublicKey(NumberUtils.INTEGER_ONE);
-	 * assertNotNull(publicKey);
-	 * 
-	 * }
-	 */
 
 
 	@Test(expected = BusinessException.class)

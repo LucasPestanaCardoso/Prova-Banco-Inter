@@ -134,7 +134,7 @@ public class UsuarioService {
 			throw new BusinessException("Usuario não encontrado ou chave não foi gerada pelo sistema.");
 		}
 		
-		return "Criptografia: " + rsa.criptografar(publicKey, usuario);
+		return "Texto Cifrado: " + rsa.criptografar(publicKey, usuario);
 	}
 	
 	public String descriptografar(String texto , Integer id) throws Exception {
