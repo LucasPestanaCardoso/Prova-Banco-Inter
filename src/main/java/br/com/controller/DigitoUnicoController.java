@@ -19,6 +19,7 @@ import br.com.model.DigitosUnicos;
 import br.com.service.DigitoUnicoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @Api(value = "Api para calculo do digito unico"  , description = "Calculo do digito unico")
@@ -30,20 +31,24 @@ public class DigitoUnicoController {
 	
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@GetMapping(value = "/calcular" , produces = MediaType.TEXT_PLAIN_VALUE)
+	@GetMapping(value = "/calcular" , produces = MediaType.ALL_VALUE)
 	@ApiOperation(value = "Metodo para o calculo de digito unico")
-	public ResponseEntity<?> calcular(@RequestParam(required = true) String n,
-			@RequestParam(required = true) Integer k , @RequestParam(required = false) Integer idUsuario) throws BusinessException {
+	public ResponseEntity<?> calcular(
+			@RequestParam(required = true) @ApiParam(name = "Numero Inteiro", example = "9875") String n,
+			@RequestParam(required = true) @ApiParam(name = "Numero Repetidor", example = "4" ) Integer k , 
+			@RequestParam(required = false) @ApiParam(name = "ID do Usuario cadastrado", example = "1") Integer idUsuario) throws BusinessException {
 		
 		Integer resultado = digitoUnicoService.digitoUnico(n, k, idUsuario);
 		
-		return new ResponseEntity("O resultado e: " + resultado, HttpStatus.OK);
+		return new ResponseEntity(resultado.toString(), HttpStatus.OK);
 	}
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@GetMapping(value = "/buscarCalculos" , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ApiOperation(value = "Metodo para buscar todos os calculos de um usuário")
-	public ResponseEntity<?> buscarCalculos(@RequestParam(required = true) Integer idUsuario) throws BusinessException {
+	public ResponseEntity<?> buscarCalculos(
+			@RequestParam(required = true) 
+			@ApiParam(name = "ID do Usuario cadastrado", example = "1") Integer idUsuario) throws BusinessException {
 		
 		List<DigitosUnicos> digitos = digitoUnicoService.buscarDigitosByUsuario(idUsuario);
 		List<DigitosUnicosDTO> resultado =  digitos.stream().map(du -> new DigitosUnicosDTO(du)).collect(Collectors.toList());

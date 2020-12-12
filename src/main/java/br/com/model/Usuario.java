@@ -29,9 +29,14 @@ public class Usuario implements Serializable {
 	@Column(name = "usu_nome")
 	private String nome;
 	
+
 	@NotNull
 	@Column(name = "usu_email")
 	private String email;
+	
+	@NotNull
+	@Column(name = "usu_texto_cifrado")
+	private String textoCifrado;
 	
 	@OneToMany(mappedBy = "usuario" , fetch = FetchType.EAGER)
 	private List<DigitosUnicos> digitosUnicos;
@@ -92,5 +97,13 @@ public class Usuario implements Serializable {
 		this.digitosUnicos = digitosUnicos;
 	}
 	 
+	
+	public String getTextoCifrado() {
+		return textoCifrado;
+	}
+
+	public void setTextoCifrado(String textoCifrado) {
+		this.textoCifrado = textoCifrado;
+	}
 	
 }

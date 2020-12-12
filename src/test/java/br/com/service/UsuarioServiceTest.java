@@ -51,13 +51,14 @@ public class UsuarioServiceTest {
 
 	}
 
-	@Test
-	public void test3() throws Exception {
-
-		publicKey = service.gerarPublicKey(NumberUtils.INTEGER_ONE);
-		assertNotNull(publicKey);
-
-	}
+	/*
+	 * @Test public void test3() throws Exception {
+	 * 
+	 * publicKey = service.gerarPublicKey(NumberUtils.INTEGER_ONE);
+	 * assertNotNull(publicKey);
+	 * 
+	 * }
+	 */
 
 
 	@Test(expected = BusinessException.class)

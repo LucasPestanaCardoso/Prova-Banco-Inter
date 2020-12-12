@@ -11,14 +11,27 @@ public class UsuarioDTO  {
 	private String email;
 	private Integer id;
 	private List<DigitosUnicosDTO> digitosUnicos;
+	private String publickey;
+	private String textoCifrado;
+
 	
 	public UsuarioDTO (Usuario usuario) {
 		this.id  = usuario.getId();
 		this.nome = usuario.getNome();
 		this.email = usuario.getEmail();
 		this.digitosUnicos = usuario.getDigitosUnicos().stream().map(du -> new DigitosUnicosDTO(du)).collect(Collectors.toList());
-	}
+	    this.publickey = usuario.getPublicKey();
+	    this.textoCifrado = usuario.getTextoCifrado();
+ 	}
 	
+	
+	public String getPublickey() {
+		return publickey;
+	}
+
+	public void setPublickey(String publickey) {
+		this.publickey = publickey;
+	}
 	
 	public String getNome() {
 		return nome;
@@ -47,6 +60,16 @@ public class UsuarioDTO  {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+
+	public String getTextoCifrado() {
+		return textoCifrado;
+	}
+
+
+	public void setTextoCifrado(String textoCifrado) {
+		this.textoCifrado = textoCifrado;
 	}
 	
 }

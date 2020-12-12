@@ -2,10 +2,7 @@ package br.com.config;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -50,7 +47,7 @@ public class RSA {
 	}
 
 	public static String encrypt(String plainText, PublicKey publicKey) throws Exception {
-		Cipher encryptCipher = Cipher.getInstance("RSA");
+		Cipher encryptCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
 		encryptCipher.init(Cipher.ENCRYPT_MODE, publicKey);
 
 		byte[] cipherText = encryptCipher.doFinal(plainText.getBytes(UTF_8));
@@ -61,29 +58,36 @@ public class RSA {
 	public static String decrypt(String cipherText, PrivateKey privateKey) throws Exception {
 		byte[] bytes = Base64.getDecoder().decode(cipherText);
 
-		Cipher decriptCipher = Cipher.getInstance("RSA");
+		Cipher decriptCipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
 		decriptCipher.init(Cipher.DECRYPT_MODE, privateKey);
 
 		return new String(decriptCipher.doFinal(bytes), UTF_8);
 	}
 
+   
+	public  String gerarKeys(Usuario usuario) throws BusinessException {
+			
+		KeyPair pair;
+		try {
+			
+			 pair = generateKeyPair();
+			 Base64.Encoder encoder = Base64.getEncoder();
+		        
+		        String publicKey = encoder.encodeToString(pair.getPublic().getEncoded());
+		        String privateKey = encoder.encodeToString(pair.getPrivate().getEncoded());
+		        
+		        String cipherText = criptografar(publicKey, usuario);
 
-
-	
-	public  String getChavePublica(Usuario usuario) throws Exception {
-		
-		KeyPair pair = generateKeyPair();
-        Base64.Encoder encoder = Base64.getEncoder();
-        
-        String publicKey = encoder.encodeToString(pair.getPublic().getEncoded());
-        String privateKey = encoder.encodeToString(pair.getPrivate().getEncoded());
-
-        usuario.setPrivateKey(privateKey);
-        usuario.setPublicKey(publicKey);
-        usuarioService.save(usuario);
-		
-		return publicKey;
+		        usuario.setTextoCifrado(cipherText);
+		        usuario.setPrivateKey(privateKey);
+		        usuario.setPublicKey(publicKey);
+		        usuarioService.save(usuario);
 				
+				return publicKey;
+		} catch (Exception e) {
+			throw new BusinessException("Erro ao gerar a public key");
+		}
+		
 	}
 	
 	

@@ -58,13 +58,7 @@ public class DigitoUnicoService {
 		Integer soma;
 		Integer resultado;
 
-		if (n != null && !NumberUtils.isDigits(n) || k != null && !NumberUtils.isDigits(k.toString())) {
-			throw new BusinessException("Os numeros são inválidos.");
-		}
-
-		if (k >= limiteK || Double.parseDouble(n) >= limiteN) {
-			throw new BusinessException("Numeros acima do permitido.");
-		}
+		validaNumeros(n, k);
 
 		for (int i = 0; i < k; i++) {
 			digitoUnico += StringUtils.join(n);
@@ -73,15 +67,27 @@ public class DigitoUnicoService {
 		do {
 			soma = digitoUnico(digitoUnico);
 			digitoUnico = soma.toString();
-
 		} while (digitoUnico.length() > 1);
 
-		resultado = Integer.valueOf(digitoUnico);
-
+		resultado = soma;
 		this.salvar(k, Integer.valueOf(n), resultado, idUsuario);
-
 		return resultado;
 	}
+
+	private void validaNumeros(String n, Integer k) throws BusinessException {
+		if (n == null || k == null) {
+			throw new BusinessException("Campos obrigatorios não preenchidos.");
+		}
+		
+		if (!NumberUtils.isDigits(n) || !NumberUtils.isDigits(k.toString())) {
+			throw new BusinessException("Os numeros são inválidos.");
+		}
+
+		if (k >= limiteK || Double.parseDouble(n) >= limiteN) {
+			throw new BusinessException("Numeros acima do permitido.");
+		}
+	}
+	
 
 	public Integer digitoUnico(String valor) {
 

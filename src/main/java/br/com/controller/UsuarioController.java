@@ -22,6 +22,7 @@ import br.com.model.Usuario;
 import br.com.service.UsuarioService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @Api(value = "/usuario" , description = "Crud do Usuario")
@@ -32,11 +33,13 @@ public class UsuarioController {
 	private UsuarioService service;
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@GetMapping(value = "/listar-todos" , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@GetMapping(value = "/listar" , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ApiOperation(value = "Metodo para buscar todos os Usuários")
-	public ResponseEntity<?> usuarios() {
+	public ResponseEntity<?> usuarios(
+			@RequestParam(required = false) 
+			@ApiParam(value = "Nome do Usuario", required = false, example = "Lucas") String nome) throws BusinessException {
 		
-	    List<Usuario> usuarios = service.getUsuarios();
+	    List<Usuario> usuarios = service.getUsuarios(nome);
         List<UsuarioDTO> retorno = usuarios.stream().map(du -> new UsuarioDTO(du)).collect(Collectors.toList());
 		return new ResponseEntity(retorno , HttpStatus.OK);
 	}
@@ -44,8 +47,11 @@ public class UsuarioController {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@PostMapping(value = "/salvar" )
 	@ApiOperation(value = "Metodo para salvar usuários" , produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<?> salvar(@RequestParam(required = true) String nome,
-			@RequestParam(required = true) String email) throws BusinessException {
+	public ResponseEntity<?> salvar(
+	    @RequestParam(required = true) 
+		@ApiParam(value = "Nome do Usuario", required = true, example = "Lucas") String nome,
+	    @RequestParam(required = true)
+		@ApiParam(value = "Email do Usuario", required = true, example = "lucas@gmail.com") String email) throws BusinessException {
 		
 		service.salvar(nome, email);
 		return new ResponseEntity("Usuario salvo com sucesso !!", HttpStatus.OK);
@@ -54,8 +60,14 @@ public class UsuarioController {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@PutMapping(value = "/alterar" )
 	@ApiOperation(value = "Metodo para atualizar usuários" , produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<?> alterar(@RequestParam(required = true) Integer id, @RequestParam(required = true) String nome,
-			@RequestParam(required = true) String email) throws BusinessException {
+	public ResponseEntity<?> alterar(
+			@RequestParam(required = true) 
+			@ApiParam(value = "ID do Usuario", required = true, example = "1") Integer id, 
+			@RequestParam(required = true) 
+			@ApiParam(value = "Novo Nome do Usuario", required = true, example = "Lucas") String nome,
+			@RequestParam(required = true) 
+			@ApiParam(value = "Novo Email do Usuario", required = true, example = "lucas@gmail.com") String email) throws BusinessException {
+		
 		service.alterar(id , nome , email);
 		return new ResponseEntity("Usuario alterado com sucesso !!", HttpStatus.OK);
 	}
@@ -63,7 +75,10 @@ public class UsuarioController {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@DeleteMapping(value = "/deletar" )
 	@ApiOperation(value = "Metodo para deletar usuários" , produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<?> deletar(@RequestParam(required = true) Integer idUsuario) throws BusinessException {
+	public ResponseEntity<?> deletar(
+			@RequestParam(required = true) 
+			@ApiParam(value = "ID do Usuario", required = true, example = "1") Integer idUsuario) throws BusinessException {
+	
 		service.deletar(idUsuario);
 		return new ResponseEntity("Usuario deletado com sucesso !!", HttpStatus.OK);
 	}
