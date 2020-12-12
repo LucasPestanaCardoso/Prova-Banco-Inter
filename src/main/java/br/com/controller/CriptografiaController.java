@@ -24,18 +24,7 @@ public class CriptografiaController {
 	@Inject
 	private UsuarioService service;
 	
-	/*
-	 * @SuppressWarnings({ "rawtypes", "unchecked" })
-	 * 
-	 * @GetMapping(value = "/gerar-public-key" )
-	 * 
-	 * @ApiOperation(value = "Metodo para gerar uma public key para o usuario" ,
-	 * produces = MediaType.TEXT_PLAIN_VALUE) public ResponseEntity<?>
-	 * gerarPublicKey(@RequestParam(required = true) Integer idUsuario) throws
-	 * Exception { //return new ResponseEntity(service.gerarPublicKey(idUsuario),
-	 * HttpStatus.OK); }
-	 */
-	
+
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@PostMapping(value = "/criptografar" )
