@@ -15,8 +15,6 @@ JDBC URL : jdbc:h2:mem:testdb
 
 **Criptografia**
 
-- A criptografia começa ao gerar uma chave publica para o usuario  `http://localhost:8080/cripto/gerar-public-key?idUsuario=1`
-
 - A chave publica e passada para  `http://localhost:8080/cripto/criptografar?publicKey` onde retorna os dados do Usuario Criptografados
 
 - O após isso o método `http://localhost:8080/cripto/descriptografar?textoCriptografado?idUsuario`  retorna os dados Descriptografados
@@ -26,7 +24,7 @@ JDBC URL : jdbc:h2:mem:testdb
 
 - Em /resources tem um arquivo chamado data.sql com 2 inserts para testes.                                                 
 - Caso você execute o postman_collection.json 2x seguidas a segunda vai dar erro , pelas as mudanças nos inserts da primeira execução.                   
-- As ações nos EndPoints são pelo ID Usuario o mesmo retorna pelo swagger no listar-todos ou direto na url em `http://localhost:8080/usuario/listar-todos`.          
+- As ações nos EndPoints são pelo ID Usuario o mesmo retorna pelo swagger no listar ou direto na url em `http://localhost:8080/usuario/listar`.          
 
  Qualquer erro que a aplicação apresentar, pode entrar em contato lucaspestanaa@gmail.com
 
