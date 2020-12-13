@@ -167,32 +167,32 @@
 		},
 		{
 			"id": "dc8d141e-b3e4-ac2c-54eb-acfd6f9636ef",
-			"headers": "",
-			"headerData": [],
-			"url": "http://localhost:8080/cripto/criptografar?publicKey=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAh9gvmSWvC6RFBCK1eeI3KGyeh8mNxGcmQYpg%2BqVKwZNZePuiiYrf1fQ5y0SjVwTFQv2GumiOd2XYsXyPasOHDshMgFd2cYGY4TRGV3EEa/uOJzNPVbzm2iBuvYaGpyLQrFlG8U%2BBtDqQrvY8kw0SPzTl9gSFbuwI7HnQxC8HkJRB%2BL7XwHb7UvUfbps6wGE19WKYeAwbPl2cxgE1NIsA7KhE2uJBjGbx14ju9XvivHHk1dxJPEgqoRXODkfNlG5C9eXlFSkS56eZXwf8ZEh%2B2IbXHcDnGXFFqWUf22iZvg7AL4ciIdWvFpw/9WY1X4XP/H9qbuCPijydZz5o96HRgQIDAQAB\n",
-			"queryParams": [
+			"headers": "Content-Type: text/plain\n",
+			"headerData": [
 				{
-					"key": "publicKey",
-					"value": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAh9gvmSWvC6RFBCK1eeI3KGyeh8mNxGcmQYpg%2BqVKwZNZePuiiYrf1fQ5y0SjVwTFQv2GumiOd2XYsXyPasOHDshMgFd2cYGY4TRGV3EEa/uOJzNPVbzm2iBuvYaGpyLQrFlG8U%2BBtDqQrvY8kw0SPzTl9gSFbuwI7HnQxC8HkJRB%2BL7XwHb7UvUfbps6wGE19WKYeAwbPl2cxgE1NIsA7KhE2uJBjGbx14ju9XvivHHk1dxJPEgqoRXODkfNlG5C9eXlFSkS56eZXwf8ZEh%2B2IbXHcDnGXFFqWUf22iZvg7AL4ciIdWvFpw/9WY1X4XP/H9qbuCPijydZz5o96HRgQIDAQAB\n",
-					"equals": true,
+					"key": "Content-Type",
+					"value": "text/plain",
 					"description": "",
 					"enabled": true
 				}
 			],
+			"url": "http://localhost:8080/cripto/criptografar\n",
+			"queryParams": [],
 			"preRequestScript": "",
 			"pathVariables": {},
 			"pathVariableData": [],
 			"method": "POST",
 			"data": [],
-			"dataMode": "params",
+			"dataMode": "raw",
 			"tests": "tests[\"Status code is 200\"] = responseCode.code === 200;\r\n",
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1607814912074,
+			"time": 1607818642310,
 			"name": "http://localhost:8080/cripto/criptografar?publicKey=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAi5uh3SQib31%2B7sBOW4l076a/KqVHRh2Qa9eiCLhY90awzcjPMk%2BNiHjE4qf13I3fDxOrOpij9O0q1zr9rAErpnCuwif3dJcEwApD55/ERft1qrUM6dG0O6wSvxCz5vF9nCZbRFzWc9wrGhM%2BsUWSjAbbeDz2deKW7jy5MlPkKbJeDUN3lZZ5Yuu3rBZGGgQh/gSLbwXjUDlO1Ncs6k1fXd9Qw3w9OwHGt2tVFfV4sWZTWf7VkonoDkNSHo%2BvnxUGSKoA/%2BC%2BpAXKkhDkRDeb/tmYmY0xG0D5oSQWzd1mlKzZ41he9NJyzkDePXxyt5PLkGmE%2BNHVm7ylwZP%2BlJWqUwIDAQAB\n",
 			"description": "Criptografar Usuario",
 			"collectionId": "a7bcf447-a518-6c78-42cb-79169d41dcff",
-			"responses": []
+			"responses": [],
+			"rawModeData": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAh9gvmSWvC6RFBCK1eeI3KGyeh8mNxGcmQYpg+qVKwZNZePuiiYrf1fQ5y0SjVwTFQv2GumiOd2XYsXyPasOHDshMgFd2cYGY4TRGV3EEa/uOJzNPVbzm2iBuvYaGpyLQrFlG8U+BtDqQrvY8kw0SPzTl9gSFbuwI7HnQxC8HkJRB+L7XwHb7UvUfbps6wGE19WKYeAwbPl2cxgE1NIsA7KhE2uJBjGbx14ju9XvivHHk1dxJPEgqoRXODkfNlG5C9eXlFSkS56eZXwf8ZEh+2IbXHcDnGXFFqWUf22iZvg7AL4ciIdWvFpw/9WY1X4XP/H9qbuCPijydZz5o96HRgQIDAQAB"
 		},
 		{
 			"id": "df9cc410-3764-6887-751c-b1a355399405",

@@ -15,7 +15,7 @@ JDBC URL : jdbc:h2:mem:testdb
 
 **Criptografia**
 
-- A chave publica e passada para  `http://localhost:8080/cripto/criptografar?publicKey` onde retorna os dados do Usuario Criptografados
+- A chave publica e passada para  `http://localhost:8080/cripto/criptografar` onde retorna os dados do Usuario Criptografados
 
 - O após isso o método `http://localhost:8080/cripto/descriptografar?textoCriptografado?idUsuario`  retorna os dados Descriptografados
 

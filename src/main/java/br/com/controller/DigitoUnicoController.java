@@ -34,9 +34,9 @@ public class DigitoUnicoController {
 	@GetMapping(value = "/calcular" , produces = MediaType.ALL_VALUE)
 	@ApiOperation(value = "Metodo para o calculo de digito unico")
 	public ResponseEntity<?> calcular(
-			@RequestParam(required = true) @ApiParam(name = "Numero Inteiro", example = "9875") String n,
-			@RequestParam(required = true) @ApiParam(name = "Numero Repetidor", example = "4" ) Integer k , 
-			@RequestParam(required = false) @ApiParam(name = "ID do Usuario cadastrado", example = "1") Integer idUsuario) throws BusinessException {
+			@RequestParam(required = true) @ApiParam(value = "Numero Inteiro", example = "9875") String n,
+			@RequestParam(required = true) @ApiParam(value = "Numero Repetidor", example = "4" ) Integer k , 
+			@RequestParam(required = false) @ApiParam(value = "ID do Usuario cadastrado", example = "1") Integer idUsuario) throws BusinessException {
 		
 		Integer resultado = digitoUnicoService.digitoUnico(n, k, idUsuario);
 		
@@ -48,7 +48,7 @@ public class DigitoUnicoController {
 	@ApiOperation(value = "Metodo para buscar todos os calculos de um usuário")
 	public ResponseEntity<?> buscarCalculos(
 			@RequestParam(required = true) 
-			@ApiParam(name = "ID do Usuario cadastrado", example = "1") Integer idUsuario) throws BusinessException {
+			@ApiParam(value = "ID do Usuario cadastrado", example = "1") Integer idUsuario) throws BusinessException {
 		
 		List<DigitosUnicos> digitos = digitoUnicoService.buscarDigitosByUsuario(idUsuario);
 		List<DigitosUnicosDTO> resultado =  digitos.stream().map(du -> new DigitosUnicosDTO(du)).collect(Collectors.toList());

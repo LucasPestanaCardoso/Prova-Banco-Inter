@@ -33,7 +33,7 @@ public class SwaggerConfig  extends WebMvcConfigurationSupport {
 	
 	private ApiInfo metaData() {
 		return  new ApiInfo("Api Prova Banco Inter", "Lucas Pestana - lucaspestanaa@gmail.com", "1.0", "urn:tos",
-				new Contact("", "" , ""), "Aprecie com moderação", "", new ArrayList<VendorExtension>());
+				new Contact("", "" , ""), "", "", new ArrayList<VendorExtension>());
      }
 	
 	
